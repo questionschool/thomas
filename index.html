@@ -63,13 +63,10 @@
     }
     .hero-image-wrap {
       width: 100%;
-      overflow: hidden;
-      max-height: 520px;
     }
     .hero-image {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center center;
+      width: 100%;
+      height: auto;
       display: block;
     }
     .hero-inner {
@@ -125,6 +122,27 @@
 
     .card { padding: 40px; background: var(--soft); border: 1px solid rgba(192,57,43,0.15); }
     .card-line { padding: 36px; border: 1px solid var(--border); }
+
+    /* 모집 마감 배지 */
+    .badge-closed {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      background: rgba(138,127,114,0.08);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+    .btn-disabled {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px dashed var(--border);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.7;
+    }
 
     h2.serif {
       font-family: 'Noto Serif KR', serif;
@@ -185,6 +203,7 @@
     <a class="nav-logo" href="https://www.questionschool.net">questionschool.net</a>
     <ul class="nav-links">
       <li><a href="https://blog.naver.com/gestaltcoach" target="_blank">Blog</a></li>
+      <li><a href="https://bookclub.questionschool.net/" target="_blank">낭만북클럽</a></li>
       <li><a href="http://pf.kakao.com/_XGbin" target="_blank">카카오톡채널</a></li>
       <li><a href="mailto:thomas@questionschool.net">email 문의</a></li>
     </ul>
@@ -223,6 +242,7 @@
     <div class="label">커뮤니티 소식</div>
     <div class="two-col">
       <div>
+        <span class="badge-closed">15기 모집 마감</span>
         <p class="meta">2026 시즌 2 · 낭독모임</p>
         <h2 class="serif">모두의 새벽 + 낭만북클럽</h2>
         <p class="body" style="font-family:'Noto Serif KR',serif; color:var(--accent); font-size:0.95rem;">어빈 D. 얄롬 『마음의 시간』<br>— 여기, 그리고 지금과 연결하기</p>
@@ -253,9 +273,10 @@
           </div>
         </div>
         <div class="btn-group" style="margin-top:32px;">
-          <a class="btn btn-dark" href="mailto:thomas@questionschool.net">신청 이메일 보내기</a>
+          <a class="btn btn-disabled" aria-disabled="true">신청 마감 (다음 시즌 안내 예정)</a>
+          <a class="btn btn-dark" href="https://bookclub.questionschool.net/" target="_blank">15기 참가자 모집 공지</a>
+          <a class="btn btn-line" href="https://bookclub.questionschool.net/history" target="_blank">지금까지 함께 읽어온 책</a>
           <a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank">카카오채널 문의</a>
-          <a class="btn btn-line" href="https://padlet.com/questionschool/modoobooks" target="_blank">그동안 함께 읽어온 도서 목록</a>
         </div>
       </div>
       <div class="card">
@@ -266,13 +287,10 @@
           <span style="font-size:0.85rem; color:var(--muted);">(모임에서는 별칭 &amp; 수평어를 씁니다)</span>
         </p>
         <p class="serif-body">
-          이해되지 않았던 부분, 인상 깊었던 문장,<br>
-          몸이 반응했던 순간들을 이야기로 나눕니다.
+          이해되지 않았던 부분, 인상 깊었던 문장, 몸이 반응했던 순간들을 이야기로 나눕니다.
         </p>
         <p class="serif-body">
-          혼자 읽을 때는 어렵게 느껴졌던 내용도<br>
-          다른 사람의 감상과 연결될 때<br>
-          훨씬 부드럽게 소화됩니다.
+          혼자 읽을 때는 어렵게 느껴졌던 내용도 다른 사람의 감상과 연결될 때 훨씬 부드럽게 소화됩니다.
         </p>
         <p style="font-family:'Noto Serif KR',serif; font-size:0.95rem; line-height:2; color:var(--ink); border-top:1px solid var(--border); padding-top:20px; margin-top:4px;">
           '함께 나눈다'는 그 자체가<br>
@@ -292,9 +310,6 @@
         <p class="body">20년 넘게 비즈니스 &amp; 리더십 코치로 활동해 오고 있습니다. 최근에는 실존주의 및 게슈탈트 코칭을 공부하며, 서로의 온전함을 격려하고 지지하는 대화의 장을 열어가고자 다양한 실험을 하며 살아가는 중입니다.</p>
         <p class="body" style="color:var(--ink); font-style:italic;">'지평(只平)' — 지금 이 순간의 평온. 토마스는 세례명입니다.</p>
         <p class="body">저서: 『혁신가의 질문』, 시집 『다시, 묻다』, 『내일 전환』(공저)<br>질문디자인연구소 소장 · 온전한대화연구소 · 인커리G 대표</p>
-        <div class="btn-group" style="margin-top:28px;">
-          <a class="btn btn-dark" href="https://www.questionschool.net/thomas">더 알아보기 →</a>
-        </div>
       </div>
       <div>
         <div class="card-line">
