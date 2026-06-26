@@ -135,6 +135,19 @@
       border-radius: 2px;
       margin-bottom: 16px;
     }
+    /* 모집 중 배지 */
+    .badge-open {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--paper);
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
     .btn-disabled {
       background: transparent;
       color: var(--muted);
@@ -242,14 +255,14 @@
     <div class="label">커뮤니티 소식</div>
     <div class="two-col">
       <div>
-        <span class="badge-closed">15기 모집 마감</span>
-        <p class="meta">2026 시즌 2 · 낭독모임</p>
+        <span class="badge-open">16기 모집 중</span>
+        <p class="meta">2026 시즌 3 · 낭독모임</p>
         <h2 class="serif">모두의 새벽 + 낭만북클럽</h2>
-        <p class="body" style="font-family:'Noto Serif KR',serif; color:var(--accent); font-size:0.95rem;">어빈 D. 얄롬 『마음의 시간』<br>— 여기, 그리고 지금과 연결하기</p>
+        <p class="body" style="font-family:'Noto Serif KR',serif; color:var(--accent); font-size:0.95rem;">하빌 헨드릭스 · 헬렌 라켈리 헌트 『이마고』<br>— 당신이 원하는 사랑 만들기</p>
         <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:12px 28px;">
           <div>
             <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">시작일</p>
-            <p style="font-size:0.88rem; color:var(--ink);">2026년 5월 26일 (화)</p>
+            <p style="font-size:0.88rem; color:var(--ink);">2026년 7월 6일 (월)</p>
           </div>
           <div>
             <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">모임 시간</p>
@@ -273,13 +286,21 @@
           </div>
         </div>
         <div class="btn-group" style="margin-top:32px;">
-          <a class="btn btn-disabled" aria-disabled="true">신청 마감 (다음 시즌 안내 예정)</a>
-          <a class="btn btn-dark" href="https://bookclub.questionschool.net/" target="_blank">15기 참가자 모집 공지</a>
-          <a class="btn btn-line" href="https://bookclub.questionschool.net/history" target="_blank">지금까지 함께 읽어온 책</a>
+          <a class="btn btn-dark" href="https://bookclub.questionschool.net/welcome_16.html" target="_blank">16기 신청하기 →</a>
+          <a class="btn btn-line" href="https://bookclub.questionschool.net/" target="_blank">낭만북클럽 홈</a>
+          <a class="btn btn-line" href="https://bookclub.questionschool.net/history.html" target="_blank">지금까지 함께 읽어온 책</a>
           <a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank">카카오채널 문의</a>
         </div>
       </div>
-      <div class="card">
+      <div>
+        <a href="https://bookclub.questionschool.net/welcome_16.html" target="_blank" style="display:block; margin-bottom:28px;">
+          <img src="https://bookclub.questionschool.net/images/book_club_season_15_2.png"
+               alt="모두의 새벽 + 낭만북클럽 16기 — 이마고 낭독모임 안내"
+               style="width:100%; max-width:340px; height:auto; display:block; margin:0 auto; transition: opacity 0.2s ease;"
+               onmouseover="this.style.opacity='0.85'"
+               onmouseout="this.style.opacity='1'">
+        </a>
+        <div class="card">
         <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:24px;">낭만북클럽은 이렇게 진행됩니다</p>
         <p class="serif-body">
           30분 낭독(돌아가며 읽기) 후<br>
@@ -297,6 +318,7 @@
           이 여정의 안전한 울타리가 되어줍니다.
         </p>
         <p style="font-size:0.8rem; color:var(--muted); margin-top:20px;">* 책은 미리 읽고 참여할 필요가 없습니다.</p>
+      </div>
       </div>
     </div>
   </section>
