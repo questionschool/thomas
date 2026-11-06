@@ -12,3 +12,5 @@
 
 .article figure.lecture-slide{margin:34px 0 40px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:3px}.lecture-slide img{display:block;width:100%;height:auto;border-radius:0;box-shadow:none;cursor:default}@media(max-width:600px){.article figure.lecture-slide{margin:28px 0}}
 .article a.book-link{color:var(--green);text-decoration:underline;text-decoration-color:#9fb6a5;text-underline-offset:3px;text-decoration-thickness:1px}.article a.book-link:hover{color:#163f2c;text-decoration-color:currentColor}.article a.book-link:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+.article a.resource-link{color:var(--green);text-decoration:underline;text-underline-offset:3px}.article a.resource-link:focus-visible{outline:2px solid var(--green);outline-offset:3px}
