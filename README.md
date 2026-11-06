@@ -41,3 +41,5 @@ GitHub Pages용 정적 홈페이지입니다. `CNAME`은 기존 도메인을 유
 ## 강연 슬라이드
 
 제공된 107장 중 본문 설명과 연결되는 10장을 골라 9개 장에 배치했습니다. 원본 JPEG는 `webbook/assets/slides/`에 그대로 보관하며 `webbook/slides.json`에 번호·목차·제목을 기록합니다. 슬라이드는 본문 흐름 안에서 읽는 이미지로만 표시하며, 클릭·팝업·확대 기능을 넣지 않습니다.
+
+PDF의 장 구분 문구는 `tools/style_pdf_chapter_labels.py source.pdf output.pdf`로 9pt 초록색으로 정리합니다. 본문과 큰 질문 제목의 위치를 옮기지 않으며, 구분 문구 영역 외의 모든 렌더링 픽셀이 동일한지 검사합니다.
