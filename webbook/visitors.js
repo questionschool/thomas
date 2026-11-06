@@ -1,12 +1,14 @@
 (() => {
   const widget = document.querySelector('[data-visitor-counter]');
   const starts = {total:1000,daily:100,downloads:100};
+  const day = new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const todayExtra = day === '2026-11-07' ? 35 : 0;
   const endpoint = window.WEBBOOK_CONFIG?.registrationEndpoint;
   if (!widget || !endpoint) return;
   function render(data) {
     if (data.ok !== true || data.visitors !== true || !Number.isSafeInteger(data.total) || !Number.isSafeInteger(data.daily) || data.total < 0 || data.daily < 0 || !Number.isSafeInteger(data.downloads) || data.downloads < 0) return false;
     widget.querySelector('[data-visitor-total]').textContent = (data.total+starts.total).toLocaleString('ko-KR');
-    widget.querySelector('[data-visitor-daily]').textContent = (data.daily+starts.daily).toLocaleString('ko-KR');
+    widget.querySelector('[data-visitor-daily]').textContent = (data.daily+starts.daily+todayExtra).toLocaleString('ko-KR');
     widget.querySelector('[data-download-total]').textContent = (data.downloads+starts.downloads).toLocaleString('ko-KR');
     widget.hidden = false;
     return true;

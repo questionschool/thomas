@@ -178,7 +178,7 @@ function visitorStats_() {
   const today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
   if (!sheet || sheet.getLastRow()<2) return reply_({ok:true,visitors:true,total:0,daily:0,downloads:pdfDownloadCount_()});
   const row = sheet.getRange(sheet.getLastRow(),1,1,4).getValues()[0];
-  return reply_({ok:true,visitors:true,total:Number(row[2])||0,daily:String(row[0])===today ? Number(row[3])||0 : 0,downloads:pdfDownloadCount_()});
+  return reply_({ok:true,visitors:true,total:Number(row[2])||0,daily:visitorDay_(row[0])===today ? Number(row[3])||0 : 0,downloads:pdfDownloadCount_()});
 }
 function recordVisit_(visitorId) {
   const props = PropertiesService.getScriptProperties();
@@ -197,12 +197,12 @@ function recordVisit_(visitorId) {
   const hash = rateKey_(salt+'|'+today+'|'+visitorId);
   const last = sheet.getLastRow();
   const previous = last>1 ? sheet.getRange(last,1,1,4).getValues()[0] : ['', '', 0, 0];
-  const sameDay = String(previous[0])===today;
+  const sameDay = visitorDay_(previous[0])===today;
   if (sameDay) {
     const match = sheet.getRange(2,2,last-1,1).createTextFinder(hash).matchEntireCell(true).findNext();
     if (match) return visitorStats_();
   }
-  sheet.appendRow([today,hash,(Number(previous[2])||0)+1,sameDay ? (Number(previous[3])||0)+1 : 1]);
+  sheet.appendRow(["'"+today,hash,(Number(previous[2])||0)+1,sameDay ? (Number(previous[3])||0)+1 : 1]);
   SpreadsheetApp.flush();
   if (!sameDay && last>1) sheet.deleteRows(2,last-1);
   return visitorStats_();
@@ -217,4 +217,11 @@ function pdfDownloadCount_() {
   const rows = sheet.getRange(2,1,sheet.getLastRow()-1,7).getValues();
   const current = rows.filter(row => row[0] && row[0]!=='b87473ac-e4c3-4ab0-b752-cfe9e7fdbb70' && row[6]==='일반 신청').length;
   return Math.max(saved,current);
+}
+
+function visitorDay_(value) {
+  if (value instanceof Date && Number.isFinite(value.getTime())) return Utilities.formatDate(value,'Asia/Seoul','yyyy-MM-dd');
+  if (typeof value === 'number' && Number.isFinite(value)) return Utilities.formatDate(new Date((value-25569)*86400000),'Asia/Seoul','yyyy-MM-dd');
+  const text = String(value || '').replace(/^'/,'');
+  return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : '';
 }
