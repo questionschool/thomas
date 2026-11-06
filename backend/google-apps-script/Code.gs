@@ -35,6 +35,7 @@ function reply_(value) {
 }
 function doGet(e) {
   try {
+    if (e && e.parameter && e.parameter.action === 'visitorStats') return visitorStats_();
     if (e && e.parameter && e.parameter.action === 'feedback') return publicFeedback_(e.parameter);
     return reply_({ok:true,service:'questionschool-pdf-registration',feedback:!!sheet_('웹북 소감')});
   } catch (err) {
@@ -74,6 +75,11 @@ function doPost(e) {
     const raw = e && e.postData && e.postData.contents;
     if (!raw || raw.length > 9000) return reply_({ok:false,error:'입력 내용을 확인해 주세요.'});
     const v = JSON.parse(raw);
+    if (v.action === 'visit') {
+      if (!/^[-a-zA-Z0-9]{20,80}$/.test(v.visitorId || '')) return reply_({ok:false,error:'invalid-visitor'});
+      if (!lock.tryLock(15000)) return reply_({ok:false,error:'busy'});
+      return recordVisit_(v.visitorId);
+    }
     if (v.website || v.consent !== true || !/^[-a-zA-Z0-9]{20,60}$/.test(v.requestId||'')) {
       return reply_({ok:false,error:'입력 내용과 수집 동의를 확인해 주세요.'});
     }
@@ -95,7 +101,9 @@ function savePdf_(v) {
   const key = 'pdf-'+rateKey_(v.email.trim().toLowerCase());
   const minute = 'pdf-minute-'+Math.floor(Date.now()/60000);
   if (limited_(key,5) || limited_(minute,40)) return reply_({ok:false,error:'신청이 많습니다. 잠시 뒤 다시 시도해 주세요.'});
+  const downloads = pdfDownloadCount_();
   sheet.appendRow([v.requestId,Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd HH:mm:ss'),plain_(v.name),plain_(v.affiliation),plain_(v.email),'2026-11-07','일반 신청']);
+  PropertiesService.getScriptProperties().setProperty('PDF_DOWNLOAD_TOTAL',String(downloads+1));
   SpreadsheetApp.flush();
   count_(key,3600);count_(minute,120);
   return reply_({ok:true});
@@ -148,6 +156,7 @@ function deleteExpiredRequests() {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(15000)) return;
   try {
+    PropertiesService.getScriptProperties().setProperty('PDF_DOWNLOAD_TOTAL',String(pdfDownloadCount_()));
     const cutoff = Date.now()-365*86400000;
     ['PDF 신청 명단','웹북 소감'].forEach(name => {
       const sheet = sheet_(name);
@@ -159,4 +168,53 @@ function deleteExpiredRequests() {
       }
     });
   } finally {lock.releaseLock();}
+}
+
+/* One browser counts once per Korean day, across all chapters.
+   Store only a date-scoped salted hash, never raw IDs or IPs.
+   Remove old hashes on the next day's first visit, preserving aggregate totals. */
+function visitorStats_() {
+  const sheet = sheet_('웹북 방문 통계');
+  const today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
+  if (!sheet || sheet.getLastRow()<2) return reply_({ok:true,visitors:true,total:0,daily:0,downloads:pdfDownloadCount_()});
+  const row = sheet.getRange(sheet.getLastRow(),1,1,4).getValues()[0];
+  return reply_({ok:true,visitors:true,total:Number(row[2])||0,daily:String(row[0])===today ? Number(row[3])||0 : 0,downloads:pdfDownloadCount_()});
+}
+function recordVisit_(visitorId) {
+  const props = PropertiesService.getScriptProperties();
+  const id = props.getProperty('SPREADSHEET_ID');
+  if (!id) return reply_({ok:false,error:'not-configured'});
+  const ss = SpreadsheetApp.openById(id);
+  let sheet = ss.getSheetByName('웹북 방문 통계');
+  if (!sheet) {
+    sheet = ss.insertSheet('웹북 방문 통계');
+    sheet.appendRow(['방문일','당일 익명 식별값','누적 방문','일일 방문']);
+    sheet.setFrozenRows(1);
+  }
+  let salt = props.getProperty('VISITOR_SALT');
+  if (!salt) {salt = Utilities.getUuid();props.setProperty('VISITOR_SALT',salt);}
+  const today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
+  const hash = rateKey_(salt+'|'+today+'|'+visitorId);
+  const last = sheet.getLastRow();
+  const previous = last>1 ? sheet.getRange(last,1,1,4).getValues()[0] : ['', '', 0, 0];
+  const sameDay = String(previous[0])===today;
+  if (sameDay) {
+    const match = sheet.getRange(2,2,last-1,1).createTextFinder(hash).matchEntireCell(true).findNext();
+    if (match) return visitorStats_();
+  }
+  sheet.appendRow([today,hash,(Number(previous[2])||0)+1,sameDay ? (Number(previous[3])||0)+1 : 1]);
+  SpreadsheetApp.flush();
+  if (!sameDay && last>1) sheet.deleteRows(2,last-1);
+  return visitorStats_();
+}
+
+/* Completed PDF requests only; verification records are excluded.
+   Keep an aggregate before retention removes personal application rows. */
+function pdfDownloadCount_() {
+  const saved = Number(PropertiesService.getScriptProperties().getProperty('PDF_DOWNLOAD_TOTAL'))||0;
+  const sheet = sheet_('PDF 신청 명단');
+  if (!sheet || sheet.getLastRow()<2) return saved;
+  const rows = sheet.getRange(2,1,sheet.getLastRow()-1,7).getValues();
+  const current = rows.filter(row => row[0] && row[0]!=='b87473ac-e4c3-4ab0-b752-cfe9e7fdbb70' && row[6]==='일반 신청').length;
+  return Math.max(saved,current);
 }
