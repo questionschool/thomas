@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="2026년 11월 6일 학토재 질문 교육 전문가 특강 시리즈 두 번째 강연, 삶의 변화를 위한 질문수업의 강연록을 공개합니다."/>
+  <title>삶의 변화를 위한 질문수업 강연 소식 · 질문예술학교</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet"/>
+  <meta property="og:title" content="질문예술학교 · 인커리G"><meta property="og:description" content="삶의 변화를 위한 질문수업 강연록과 모두의 새벽 + 낭만북클럽 소식"><meta property="og:image" content="https://questionschool.net/webbook/assets/og.webp"><link rel="canonical" href="https://questionschool.net/news/question-class-20261106.html">
+  <style>
+    :root {
+      --ink: #1a1410;
+      --paper: #f5f0e8;
+      --accent: #c0392b;
+      --muted: #8a7f72;
+      --soft: rgba(192,57,43,0.06);
+      --border: #d4c9b8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      display: flex; flex-direction: column;
+      animation: fadeUp 1.2s ease 0.2s both;
+    }
+    .hero-image-wrap {
+      width: 100%;
+    }
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-inner {
+      padding: 72px 60px 80px;
+      display: flex; flex-direction: column;
+    }
+    .hero-text { display: flex; flex-direction: column; }
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.25em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 36px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+    .hero h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 40px;
+    }
+    .hero h1 .q { color: var(--accent); }
+    .hero-body {
+      max-width: 600px; font-size: 0.94rem;
+      color: var(--ink); line-height: 2.2;
+      border-left: 2px solid var(--border);
+      padding-left: 24px; margin-bottom: 40px;
+    }
+    .hero-body p + p { margin-top: 14px; }
+
+    /* BUTTONS */
+    .btn-group { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-block; padding: 13px 32px;
+      font-size: 0.8rem; letter-spacing: 0.12em;
+      text-decoration: none; transition: all 0.25s ease; cursor: pointer;
+    }
+    .btn-dark { background: var(--ink); color: var(--paper); border: 1.5px solid var(--ink); }
+    .btn-dark:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-line { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-line:hover { border-color: var(--ink); }
+
+    /* SECTIONS */
+    section { padding: 88px 60px; border-top: 1px solid var(--border); }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 48px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .label::after { content: ''; width: 50px; height: 1px; background: var(--border); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .three-one { display: grid; grid-template-columns: 3fr 2fr; gap: 72px; align-items: start; }
+
+    .card { padding: 40px; background: var(--soft); border: 1px solid rgba(192,57,43,0.15); }
+    .card-line { padding: 36px; border: 1px solid var(--border); }
+
+    /* 모집 마감 배지 */
+    .badge-closed {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      background: rgba(138,127,114,0.08);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+    /* 모집 중 배지 */
+    .badge-open {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--paper);
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+    .btn-disabled {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px dashed var(--border);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    h2.serif {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      font-weight: 700; line-height: 1.5; margin-bottom: 20px;
+    }
+    p.body { font-size: 0.92rem; color: var(--muted); line-height: 2.1; margin-bottom: 14px; }
+    p.serif-body {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.98rem; line-height: 2.2; color: var(--ink); margin-bottom: 24px;
+    }
+    .meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 14px; }
+
+    /* CLOSING */
+    .closing {
+      text-align: center; padding: 110px 60px;
+      border-top: 1px solid var(--border);
+    }
+    .closing h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300; line-height: 1.7; margin-bottom: 44px;
+    }
+    .closing h2 strong { font-weight: 700; color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 36px 60px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav, .hero, section, .closing, footer { padding-left: 28px; padding-right: 28px; }
+      .nav-links { display: none; }
+      .hero-image-wrap { width: 100%; }
+      .hero-inner { padding: 48px 28px 60px; }
+      .two-col, .three-one { grid-template-columns: 1fr; gap: 36px; }
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    .menu-toggle { display:none; border:1px solid var(--border); padding:8px 12px; background:transparent; color:var(--ink); }
+    .home-skip{position:absolute;left:15px;top:-60px;z-index:101;background:white;padding:10px}.home-skip:focus{top:10px}
+    .news-image{display:block;align-self:center}.news-image img{width:100%;height:auto;display:block}
+    .club-facts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:26px 0}.club-facts dt{font-size:.75rem;color:var(--accent);margin-bottom:4px}.club-facts dd{font-size:.87rem}
+    .club-visual{display:grid;grid-template-columns:minmax(100px,200px) 1fr;gap:24px;align-items:center}.club-cover{width:100%;height:auto;box-shadow:5px 8px 20px #21170c22}.club-visual .card{padding:25px}.club-visual h3{font-size:.9rem;margin-bottom:16px}.club-visual p{font-size:.83rem;margin-bottom:14px}.small-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:24px;font-size:.75rem}.small-links a{color:var(--muted)}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+    @media(max-width:1100px){.nav-links{gap:16px}.club-visual{grid-template-columns:1fr}.club-cover{max-width:200px}.two-col{gap:36px}}
+    @media(max-width:768px){.menu-toggle{display:block}.nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:16px 28px;background:var(--paper);border-bottom:1px solid var(--border)}.nav-links.open a{display:block;padding:10px}.club-visual{grid-template-columns:minmax(95px,130px) 1fr;gap:15px}.club-visual .card{padding:15px}.hero{padding:0}.hero-inner{padding-left:28px;padding-right:28px}footer{gap:20px;flex-wrap:wrap}.btn{letter-spacing:.03em;padding:12px 20px}}
+    @media(max-width:420px){.club-visual{grid-template-columns:1fr}.club-cover{max-width:170px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body><nav><a class="nav-logo" href="/">← 질문예술학교</a><a class="btn btn-line" href="/webbook/">웹북 읽기</a></nav><main><section><p class="meta"><time datetime="2026-11-06">2026년 11월 6일</time> · 강연 소식</p><h1 class="serif" style="font-size:clamp(2rem,5vw,3.5rem);line-height:1.5;margin-bottom:30px">삶의 변화를 위한 질문수업<br><span style="font-size:.6em">왜 다르게 질문해야 할까요?</span></h1><div style="max-width:750px"><p class="serif-body">학토재가 주관한 「차이를 만드는 질문!」 질문 교육 전문가 특강 시리즈의 두 번째 강연을 맡았습니다.</p><p class="body">배움이 앎에 머무르지 않고 실천과 삶의 변화로 이어지려면, 우리의 질문은 어떻게 달라져야 할지 함께 살펴보았습니다. 앎·함·됨의 배움, 질문을 선물하는 태도, 변화를 돕는 질문을 나누었습니다.</p><p class="body">강연 녹취와 슬라이드를 정리해 A5 57쪽의 이북으로 만들었습니다. 강연의 흐름을 따라 읽고, 중간중간 자신의 질문도 적어 보실 수 있습니다.</p></div><a href="/webbook/"><img src="/webbook/assets/og.webp" style="width:100%;max-width:1100px;margin:30px 0" width="1400" height="733" alt="질문술사 박영준 강연록 · 인커리G + 질문예술학교"></a><blockquote class="serif-body">“학습을 이끄는 것이 질문이라면,<br>질문을 이끄는 것은 사랑입니다.”</blockquote><p class="meta">질문술사 박영준 · 인커리G + 질문예술학교</p><div class="btn-group"><a class="btn btn-dark" href="/webbook/">웹북 읽기 · PDF 내려받기 →</a><a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">인커리G 채널 등록 ↗</a></div></section></main><footer>© 2026 질문예술학교 · 인커리G <a href="/">홈페이지로 돌아가기</a></footer></body></html>

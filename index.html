@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="지금 이 순간, 어떤 질문에 머물고 있나요?"/>
+  <meta name="description" content="질문예술학교 · 인커리G. 질문술사 박영준의 강연과 코칭, 질문수업 웹북, 모두의 새벽 + 낭만북클럽 소식을 전합니다."/>
   <title>질문예술학교</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet"/>
+  <meta property="og:title" content="질문예술학교 · 인커리G"><meta property="og:description" content="삶의 변화를 위한 질문수업 강연록과 모두의 새벽 + 낭만북클럽 소식"><meta property="og:image" content="https://questionschool.net/webbook/assets/og.webp"><link rel="canonical" href="https://questionschool.net/">
   <style>
     :root {
       --ink: #1a1410;
@@ -207,17 +208,28 @@
       .hero-inner { padding: 48px 28px 60px; }
       .two-col, .three-one { grid-template-columns: 1fr; gap: 36px; }
     }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    .menu-toggle { display:none; border:1px solid var(--border); padding:8px 12px; background:transparent; color:var(--ink); }
+    .home-skip{position:absolute;left:15px;top:-60px;z-index:101;background:white;padding:10px}.home-skip:focus{top:10px}
+    .news-image{display:block;align-self:center}.news-image img{width:100%;height:auto;display:block}
+    .club-facts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:26px 0}.club-facts dt{font-size:.75rem;color:var(--accent);margin-bottom:4px}.club-facts dd{font-size:.87rem}
+    .club-visual{display:grid;grid-template-columns:minmax(100px,200px) 1fr;gap:24px;align-items:center}.club-cover{width:100%;height:auto;box-shadow:5px 8px 20px #21170c22}.club-visual .card{padding:25px}.club-visual h3{font-size:.9rem;margin-bottom:16px}.club-visual p{font-size:.83rem;margin-bottom:14px}.small-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:24px;font-size:.75rem}.small-links a{color:var(--muted)}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+    @media(max-width:1100px){.nav-links{gap:16px}.club-visual{grid-template-columns:1fr}.club-cover{max-width:200px}.two-col{gap:36px}}
+    @media(max-width:768px){.menu-toggle{display:block}.nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:16px 28px;background:var(--paper);border-bottom:1px solid var(--border)}.nav-links.open a{display:block;padding:10px}.club-visual{grid-template-columns:minmax(95px,130px) 1fr;gap:15px}.club-visual .card{padding:15px}.hero{padding:0}.hero-inner{padding-left:28px;padding-right:28px}footer{gap:20px;flex-wrap:wrap}.btn{letter-spacing:.03em;padding:12px 20px}}
+    @media(max-width:420px){.club-visual{grid-template-columns:1fr}.club-cover{max-width:170px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
   </style>
 </head>
-<body>
+<body><a class="home-skip" href="#main">본문 바로가기</a>
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="https://www.questionschool.net">questionschool.net</a>
-    <ul class="nav-links">
-      <li><a href="https://blog.naver.com/gestaltcoach" target="_blank">Blog</a></li>
-      <li><a href="https://bookclub.questionschool.net/" target="_blank">낭만북클럽</a></li>
-      <li><a href="http://pf.kakao.com/_XGbin" target="_blank">카카오톡채널</a></li>
+    <a class="nav-logo" href="/">질문예술학교</a><button class="menu-toggle" aria-expanded="false" aria-controls="home-menu">메뉴</button>
+    <ul id="home-menu" class="nav-links"><li><a href="#news">소식</a></li><li><a href="/webbook/">질문수업 웹북</a></li>
+      <li><a href="https://blog.naver.com/gestaltcoach" target="_blank" rel="noopener">Blog</a></li>
+      <li><a href="https://bookclub.questionschool.net/" target="_blank" rel="noopener">낭만북클럽</a></li>
+      <li><a href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">카카오톡채널</a></li>
       <li><a href="mailto:thomas@questionschool.net">email 문의</a></li>
     </ul>
   </nav>
@@ -243,83 +255,43 @@
           <p>어떤 질문은 혼자보다 함께 대화하는 것이 더 좋기도 합니다.</p>
         </div>
         <div class="btn-group">
-          <a class="btn btn-dark" href="https://blog.naver.com/gestaltcoach" target="_blank">지평의 노트 보기</a>
-          <a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank">카카오채널 구독</a>
+          <a class="btn btn-dark" href="/webbook/">질문수업 강연록 읽기</a>
+          <a class="btn btn-line" href="https://blog.naver.com/gestaltcoach" target="_blank" rel="noopener">지평의 노트 보기</a>
+          <a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">카카오채널 구독</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 최신 소식 -->
-  <section>
-    <div class="label">커뮤니티 소식</div>
+  <main id="main">
+  <section id="news" aria-labelledby="lecture-title">
+    <div class="label">질문예술학교 소식 · 2026.11.06</div>
+    <div class="two-col lecture-news">
+      <div><span class="badge-closed">강연 소식 · 강연록 공개</span>
+        <h2 class="serif" id="lecture-title">삶의 변화를 위한<br>질문수업</h2>
+        <p class="serif-body">왜 다르게 질문해야 할까요?</p>
+        <p class="body">11월 6일, 학토재가 주관한 「차이를 만드는 질문!」 질문 교육 전문가 특강 시리즈의 두 번째 강연을 맡았습니다.</p>
+        <p class="body">배움이 앎에 머무르지 않고 실천과 삶의 변화로 이어지려면, 우리의 질문은 어떻게 달라져야 할지 함께 살펴보았습니다.</p>
+        <p class="body">강연에서 나눈 이야기와 슬라이드를 정리해 이북으로 만들었습니다. 웹북으로 읽거나 PDF로 내려받으실 수 있습니다.</p>
+        <p class="meta">질문술사 박영준 강연록 · 인커리G + 질문예술학교</p>
+        <div class="btn-group"><a class="btn btn-dark" href="/webbook/">웹북 읽기 →</a><a class="btn btn-line" href="/news/question-class-20261106.html">강연 소식 보기</a></div>
+      </div>
+      <a class="news-image" href="/webbook/"><img src="/webbook/assets/og.webp" width="1400" height="733" loading="lazy" alt="삶의 변화를 위한 질문수업 — 질문술사 박영준 강연록 · 인커리G + 질문예술학교"></a>
+    </div>
+  </section>
+  <section id="bookclub" aria-labelledby="bookclub-title">
+    <div class="label">모두의 새벽 + 낭만북클럽</div>
     <div class="two-col">
-      <div>
-        <span class="badge-open">16기 모집 중</span>
-        <p class="meta">2026 시즌 3 · 낭독모임</p>
-        <h2 class="serif">모두의 새벽 + 낭만북클럽</h2>
-        <p class="body" style="font-family:'Noto Serif KR',serif; color:var(--accent); font-size:0.95rem;">하빌 헨드릭스 · 헬렌 라켈리 헌트 『이마고』<br>— 당신이 원하는 사랑 만들기</p>
-        <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:12px 28px;">
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">시작일</p>
-            <p style="font-size:0.88rem; color:var(--ink);">2026년 7월 6일 (월)</p>
-          </div>
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">모임 시간</p>
-            <p style="font-size:0.88rem; color:var(--ink);">평일 새벽 6시~7시</p>
-          </div>
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">장소</p>
-            <p style="font-size:0.88rem; color:var(--ink);">ZOOM (링크 별도 안내)</p>
-          </div>
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">모집 인원</p>
-            <p style="font-size:0.88rem; color:var(--ink);">최대 8명 (선착순)</p>
-          </div>
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">참가 비용</p>
-            <p style="font-size:0.88rem; color:var(--ink);">10만원 (완독 시까지)<br>카카오뱅크 3333-35-0705695</p>
-          </div>
-          <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">진행</p>
-            <p style="font-size:0.88rem; color:var(--ink);">상담사 농담 + 질문술사 지평</p>
-          </div>
-        </div>
-        <div class="btn-group" style="margin-top:32px;">
-          <a class="btn btn-dark" href="https://bookclub.questionschool.net/welcome_16.html" target="_blank">16기 신청하기 →</a>
-          <a class="btn btn-line" href="https://bookclub.questionschool.net/" target="_blank">낭만북클럽 홈</a>
-          <a class="btn btn-line" href="https://bookclub.questionschool.net/history.html" target="_blank">지금까지 함께 읽어온 책</a>
-          <a class="btn btn-line" href="http://pf.kakao.com/_XGbin" target="_blank">카카오채널 문의</a>
-        </div>
+      <div><span class="badge-open">시즌 18 · 함께 읽는 중</span>
+        <h2 class="serif" id="bookclub-title">책을 읽고,<br>당신을 만납니다.</h2>
+        <p class="serif-body">김정규 『뉴런하우스』 — 너에게 말하기</p>
+        <p class="body">평일 새벽 여섯 시, 한 문단씩 소리 내어 읽고 그 문장이 닿은 삶의 이야기를 나눕니다. 11월 2일부터 시즌 18을 함께 읽고 있습니다.</p>
+        <dl class="club-facts"><div><dt>일정</dt><dd>2026년 11월 2일–30일<br>총 21회 예정 · 낭독 속도에 따라 조정</dd></div><div><dt>시간·장소</dt><dd>평일 오전 6–7시 · 온라인 Zoom</dd></div><div><dt>참가비</dt><dd>10만원 · 도서 각자 준비</dd></div><div><dt>진행</dt><dd>농담 · 지평</dd></div></dl>
+        <p class="body">처음 오시는 분도 책을 미리 읽어 오실 필요는 없습니다. 지금 참여를 원하시면 채널로 문의해 주세요.</p>
+        <div class="btn-group"><a class="btn btn-dark" href="https://bookclub.questionschool.net/welcome_18.html" target="_blank" rel="noopener">시즌 18 안내·신청 ↗</a><a class="btn btn-line" href="http://pf.kakao.com/_XGbin/chat" target="_blank" rel="noopener">참여 문의</a></div>
+        <p class="small-links"><a href="https://bookclub.questionschool.net/guide.html" target="_blank" rel="noopener">처음 오셨나요</a><a href="https://bookclub.questionschool.net/archive.html" target="_blank" rel="noopener">함께 읽은 책과 기록</a><a href="https://bookclub.questionschool.net/" target="_blank" rel="noopener">낭만북클럽 홈페이지 ↗</a></p>
       </div>
-      <div>
-        <a href="https://bookclub.questionschool.net/welcome_16.html" target="_blank" style="display:block; margin-bottom:28px;">
-          <img src="https://bookclub.questionschool.net/images/og_image_16.png"
-               alt="모두의 새벽 + 낭만북클럽 16기 — 이마고 낭독모임 안내"
-               style="width:100%; height:auto; display:block; transition: opacity 0.2s ease;"
-               onmouseover="this.style.opacity='0.85'"
-               onmouseout="this.style.opacity='1'">
-        </a>
-        <div class="card">
-        <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:24px;">낭만북클럽은 이렇게 진행됩니다</p>
-        <p class="serif-body">
-          30분 낭독(돌아가며 읽기) 후<br>
-          30분간 서로의 이야기를 나눕니다.<br>
-          <span style="font-size:0.85rem; color:var(--muted);">(모임에서는 별칭 &amp; 수평어를 씁니다)</span>
-        </p>
-        <p class="serif-body">
-          이해되지 않았던 부분, 인상 깊었던 문장, 몸이 반응했던 순간들을 이야기로 나눕니다.
-        </p>
-        <p class="serif-body">
-          혼자 읽을 때는 어렵게 느껴졌던 내용도 다른 사람의 감상과 연결될 때 훨씬 부드럽게 소화됩니다.
-        </p>
-        <p style="font-family:'Noto Serif KR',serif; font-size:0.95rem; line-height:2; color:var(--ink); border-top:1px solid var(--border); padding-top:20px; margin-top:4px;">
-          '함께 나눈다'는 그 자체가<br>
-          이 여정의 안전한 울타리가 되어줍니다.
-        </p>
-        <p style="font-size:0.8rem; color:var(--muted); margin-top:20px;">* 책은 미리 읽고 참여할 필요가 없습니다.</p>
-      </div>
-      </div>
+      <div class="club-visual"><a href="https://bookclub.questionschool.net/welcome_18.html" target="_blank" rel="noopener"><img class="club-cover" src="/assets/neuronhouse-cover.jpg" width="500" height="728" loading="lazy" alt="시즌 18 낭독 도서 김정규의 뉴런하우스 책표지"></a><div class="card"><h3>한 시간의 낭독과 대화</h3><p>30분은 돌아가며 읽고,<br>30분은 서로의 이야기를 나눕니다.</p><p>별칭과 수평어를 쓰며 만납니다.<br>존댓말이나 본명이 편하시면 그대로 사용하셔도 괜찮습니다.</p></div></div>
     </div>
   </section>
 
@@ -341,10 +313,10 @@
           <p style="font-size:0.88rem; line-height:2.2; color:var(--ink);">
             <a href="mailto:thomas@questionschool.net" style="color:var(--accent); text-decoration:none;">thomas@questionschool.net</a><br>
             Tel : 0502-5552-1776<br>
-            <a href="http://pf.kakao.com/_XGbin" target="_blank" style="color:var(--accent); text-decoration:none;">카카오채널 바로가기</a>
+            <a href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">카카오채널 바로가기</a>
           </p>
           <div style="margin-top:28px;">
-            <a class="btn btn-dark" href="http://pf.kakao.com/_XGbin" target="_blank">카카오채널을 통해 소통하기</a>
+            <a class="btn btn-dark" href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">카카오채널을 통해 소통하기</a>
           </div>
         </div>
         <div style="margin-top:20px; padding:24px 36px; border: 1px solid var(--border);">
@@ -357,6 +329,7 @@
     </div>
   </section>
 
+  </main>
   <!-- CLOSING -->
   <div class="closing">
     <h2>
@@ -365,7 +338,7 @@
       머물고 있나요?
     </h2>
     <div class="btn-group" style="justify-content:center;">
-      <a class="btn btn-dark" href="http://pf.kakao.com/_XGbin" target="_blank">커뮤니티 함께하기</a>
+      <a class="btn btn-dark" href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">커뮤니티 함께하기</a>
       <a class="btn btn-line" href="mailto:thomas@questionschool.net">코칭 및 강연 의뢰</a>
     </div>
   </div>
@@ -379,5 +352,5 @@
     </span>
   </footer>
 
-</body>
+<script>const menu=document.querySelector('.menu-toggle'),links=document.querySelector('.nav-links');menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');menu.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',e=>{if(e.key==='Escape'){links.classList.remove('open');menu.setAttribute('aria-expanded','false')}});</script></body>
 </html>
