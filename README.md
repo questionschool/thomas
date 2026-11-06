@@ -37,3 +37,7 @@ GitHub Pages용 정적 홈페이지입니다. `CNAME`은 기존 도메인을 유
 현재 PDF 신청에 쓰는 Apps Script를 최신 코드로 교체하고 기존 웹 앱을 새 버전으로 배포해야 합니다. [코드 전체 복사 및 연결 안내](https://questionschool.net/webbook/setup-feedback.html)에서 진행합니다. 주소가 유지되면 별도의 웹북 재게시 없이 기능이 나타납니다.
 
 `node tools/check_feedback_backend.mjs`는 외부 계정 없이 메모리 저장소에서 공개/비공개 분리, 기존 PDF 호환, 재시도 중복 방지, 수식 입력 처리, 보관기간과 목록 페이지 처리를 확인합니다.
+
+## 강연 슬라이드
+
+제공된 107장 중 본문 설명과 연결되는 10장을 골라 9개 장에 배치했습니다. 원본 JPEG는 `webbook/assets/slides/`에 그대로 보관하며 `webbook/slides.json`에 번호·목차·제목을 기록합니다. 슬라이드는 본문 흐름 안에서 읽는 이미지로만 표시하며, 클릭·팝업·확대 기능을 넣지 않습니다.
