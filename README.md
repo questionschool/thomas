@@ -20,7 +20,7 @@ GitHub Pages용 정적 홈페이지입니다. `CNAME`은 기존 도메인을 유
 
 ## PDF 신청 연결 상태
 
-현재 독립형 웹북은 PDF를 바로 제공합니다. 이름·소속·이메일 자동 수집은 Google Apps Script를 관리자 Google 계정에서 한 번 배포한 뒤 활성화합니다. 배포 방법은 [별도 안내](backend/google-apps-script/README.md)를 따릅니다. 연결 전에는 입력 폼을 노출하지 않으며 신청 정보가 저장된다고 안내하지 않습니다.
+이름·소속·이메일과 수집 동의를 입력하면 Google Apps Script가 관리자 전용 시트에 즉시 저장하고 PDF를 엽니다. `webbook/config.js`에 배포된 웹 앱 주소가 연결되어 있습니다. Google 계정 토큰은 프런트엔드나 저장소에 넣지 않습니다. 운영·재배포 방법은 [별도 안내](backend/google-apps-script/README.md)를 따릅니다.
 
 신청 정보를 모으는 시트나 원본 강연 녹취·채팅은 공개 저장소에 포함하지 않습니다.
 
