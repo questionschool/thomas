@@ -37,7 +37,7 @@ function doGet(e) {
   try {
     if (e && e.parameter && e.parameter.action === 'visitorStats') return visitorStats_();
     if (e && e.parameter && e.parameter.action === 'feedback') return publicFeedback_(e.parameter);
-    return reply_({ok:true,service:'questionschool-pdf-registration',feedback:!!sheet_('웹북 소감')});
+    return reply_({ok:true,service:'questionschool-pdf-registration',feedback:!!sheet_('웹북 소감'),admin:true});
   } catch (err) {
     return reply_({ok:false,error:'소감을 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'});
   }
@@ -75,6 +75,7 @@ function doPost(e) {
     const raw = e && e.postData && e.postData.contents;
     if (!raw || raw.length > 9000) return reply_({ok:false,error:'입력 내용을 확인해 주세요.'});
     const v = JSON.parse(raw);
+    if (['adminLogin','adminRecords','adminLogout'].includes(v.action)) return adminAction_(v);
     if (v.action === 'visit') {
       if (!/^[-a-zA-Z0-9]{20,80}$/.test(v.visitorId || '')) return reply_({ok:false,error:'invalid-visitor'});
       if (!lock.tryLock(15000)) return reply_({ok:false,error:'busy'});
@@ -224,4 +225,67 @@ function visitorDay_(value) {
   if (typeof value === 'number' && Number.isFinite(value)) return Utilities.formatDate(new Date((value-25569)*86400000),'Asia/Seoul','yyyy-MM-dd');
   const text = String(value || '').replace(/^'/,'');
   return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : '';
+}
+
+/* Administrator access: verifier lives only in the owner's private spreadsheet.
+   Private records are read only after a server-side, expiring bearer session. */
+function adminEqual_(a,b) {
+  a=String(a);b=String(b);let difference=a.length^b.length;
+  for(let i=0;i<Math.max(a.length,b.length);i++) difference|=(a.charCodeAt(i)||0)^(b.charCodeAt(i)||0);
+  return difference===0;
+}
+function adminConfig_() {
+  const sheet=sheet_('웹북 관리자 설정');
+  if(!sheet || sheet.getLastRow()<3) return null;
+  const values={};
+  sheet.getRange(2,1,sheet.getLastRow()-1,2).getValues().forEach(row=>{values[String(row[0])]=String(row[1]);});
+  if(!/^[a-f0-9]{64}$/.test(values.password_salt||'') || !/^[A-Za-z0-9_-]{43}$/.test(values.password_hash||'')) return null;
+  return {salt:values.password_salt,hash:values.password_hash};
+}
+function adminAction_(v) {
+  const lock=LockService.getScriptLock();
+  try {
+    if(v.action==='adminLogin') {
+      if(typeof v.password!=='string' || v.password.length<8 || v.password.length>128) return reply_({ok:false,error:'비밀번호를 확인해 주세요.'});
+      if(!lock.tryLock(10000)) return reply_({ok:false,error:'잠시 뒤 다시 시도해 주세요.'});
+      if(limited_('admin-login-failures',10)) return reply_({ok:false,error:'로그인 시도가 많습니다. 5분 뒤 다시 시도해 주세요.'});
+      const config=adminConfig_();
+      if(!config) return reply_({ok:false,adminConfigured:false,error:'관리자 설정이 아직 연결되지 않았습니다.'});
+      const digest=rateKey_(config.salt+'|'+v.password).replace(/=+$/,'');
+      if(!adminEqual_(digest,config.hash)) {
+        count_('admin-login-failures',300);
+        return reply_({ok:false,error:'비밀번호를 확인해 주세요.'});
+      }
+      const token=Utilities.getUuid().replace(/-/g,'')+Utilities.getUuid().replace(/-/g,'');
+      CacheService.getScriptCache().put('admin-session-'+rateKey_(token),rateKey_(config.salt+'|'+config.hash),1200);
+      return reply_({ok:true,admin:true,token:token,expiresAt:Date.now()+1200000});
+    }
+    if(!/^[a-f0-9]{64}$/.test(v.token||'')) return reply_({ok:false,unauthorized:true,error:'관리자 로그인이 필요합니다.'});
+    const key='admin-session-'+rateKey_(v.token),cache=CacheService.getScriptCache(),session=cache.get(key),config=adminConfig_();
+    if(!session || !config || !adminEqual_(session,rateKey_(config.salt+'|'+config.hash))) return reply_({ok:false,unauthorized:true,error:'로그인 시간이 만료되었습니다. 다시 로그인해 주세요.'});
+    if(v.action==='adminLogout') {cache.remove(key);return reply_({ok:true});}
+    return adminFeedback_(v);
+  } catch(err) {
+    return reply_({ok:false,error:'관리자 요청을 처리하지 못했습니다. 잠시 뒤 다시 시도해 주세요.'});
+  } finally {if(lock.hasLock()) lock.releaseLock();}
+}
+function adminFeedback_(v) {
+  if(!['all','public','private'].includes(v.visibility||'all')) return reply_({ok:false,error:'조회 조건을 확인해 주세요.'});
+  const sheet=sheet_('웹북 소감');
+  if(!sheet || sheet.getLastRow()<2) return reply_({ok:true,admin:true,items:[],nextBefore:0});
+  const last=sheet.getLastRow(),limit=Math.min(25,Math.max(1,Math.floor(Number(v.limit)||25))),before=v.before===undefined?last+1:Number(v.before);
+  if(!Number.isSafeInteger(before)||before<2) return reply_({ok:false,error:'조회 위치를 확인해 주세요.'});
+  let end=Math.min(last,before-1),next=0;const items=[],cutoff=Date.now()-365*86400000;
+  while(end>=2 && items.length<limit) {
+    const start=Math.max(2,end-99),rows=sheet.getRange(start,1,end-start+1,6).getValues();
+    for(let i=rows.length-1;i>=0;i--) {
+      const row=rows[i],time=date_(row[1]);
+      if(!['public','private'].includes(row[4]) || !Number.isFinite(time) || time<cutoff) continue;
+      if(v.visibility && v.visibility!=='all' && row[4]!==v.visibility) continue;
+      items.push({id:String(row[0]),nickname:String(row[2]),message:String(row[3]),visibility:row[4],date:Utilities.formatDate(new Date(time),'Asia/Seoul','yyyy.MM.dd HH:mm')});
+      if(items.length===limit) {next=start+i>2?start+i:0;break;}
+    }
+    end=start-1;
+  }
+  return reply_({ok:true,admin:true,items:items,nextBefore:next});
 }
