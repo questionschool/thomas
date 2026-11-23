@@ -47,3 +47,7 @@ PDF의 장 구분 문구는 `tools/style_pdf_chapter_labels.py source.pdf output
 ## 웹북 소액후원
 
 하단의 ‘질문예술학교 소액후원’은 기본적으로 접혀 있습니다. 제목을 클릭하거나 키보드 Enter로 펼치면 계좌번호·예금주·복사 버튼이 표시됩니다. 첫 화면과 각 장의 독립 HTML에 같은 동작을 적용합니다.
+
+## 모두의 질문 카드
+
+홈페이지 `#question-cards`에 일터 경험·학교생활 나눔 카드 두 가지와 독립 도메인으로 연결되는 QR 공유 이미지를 소개합니다. 실제 카드는 [별도 정적 저장소](https://github.com/questionschool/card)에서 운영합니다.

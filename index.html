@@ -219,6 +219,7 @@
     @media(max-width:768px){.menu-toggle{display:block}.nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:16px 28px;background:var(--paper);border-bottom:1px solid var(--border)}.nav-links.open a{display:block;padding:10px}.club-visual{grid-template-columns:minmax(95px,130px) 1fr;gap:15px}.club-visual .card{padding:15px}.hero{padding:0}.hero-inner{padding-left:28px;padding-right:28px}footer{gap:20px;flex-wrap:wrap}.btn{letter-spacing:.03em;padding:12px 20px}}
     @media(max-width:420px){.club-visual{grid-template-columns:1fr}.club-cover{max-width:170px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+    .question-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0}.question-card-grid article{max-width:580px}.question-card-grid img{display:block;width:100%;height:auto;border:1px solid var(--border)}.question-card-grid h3{font-family:"Noto Serif KR",serif;font-size:1.2rem;margin:20px 0 8px}.question-card-grid p{font-size:1rem;color:var(--muted);margin:0 0 20px}#question-cards>.body{max-width:740px;font-size:1rem}@media(max-width:700px){.question-card-grid{grid-template-columns:1fr;gap:36px}}
   </style>
 </head>
 <body><a class="home-skip" href="#main">본문 바로가기</a>
@@ -226,7 +227,7 @@
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="/">질문예술학교</a><button class="menu-toggle" aria-expanded="false" aria-controls="home-menu">메뉴</button>
-    <ul id="home-menu" class="nav-links"><li><a href="#news">소식</a></li><li><a href="/webbook/">질문수업 웹북</a></li>
+    <ul id="home-menu" class="nav-links"><li><a href="#news">소식</a></li><li><a href="#question-cards">질문카드</a></li><li><a href="/webbook/">질문수업 웹북</a></li>
       <li><a href="https://blog.naver.com/gestaltcoach" target="_blank" rel="noopener">Blog</a></li>
       <li><a href="https://bookclub.questionschool.net/" target="_blank" rel="noopener">낭만북클럽</a></li>
       <li><a href="http://pf.kakao.com/_XGbin" target="_blank" rel="noopener">카카오톡채널</a></li>
@@ -293,6 +294,18 @@
       </div>
       <div class="club-visual"><a href="https://bookclub.questionschool.net/welcome_18.html" target="_blank" rel="noopener"><img class="club-cover" src="/assets/neuronhouse-cover.jpg" width="500" height="728" loading="lazy" alt="시즌 18 낭독 도서 김정규의 뉴런하우스 책표지"></a><div class="card"><h3>한 시간의 낭독과 대화</h3><p>30분은 돌아가며 읽고,<br>30분은 서로의 이야기를 나눕니다.</p><p>별칭과 수평어를 쓰며 만납니다.<br>존댓말이나 본명이 편하시면 그대로 사용하셔도 괜찮습니다.</p></div></div>
     </div>
+  </section>
+
+  <section id="question-cards" aria-labelledby="question-cards-title">
+    <div class="label">모두의 질문 카드</div>
+    <h2 class="serif" id="question-cards-title">경험을 나누는<br>질문 한 장...</h2>
+    <p class="body">일터와 학교에서 보낸 하루를 한 장의 질문으로 나눠 보세요. 질문을 뽑고, 떠오르는 경험을 편하게 이야기하면 됩니다.</p>
+    <p class="body">재미삼아 시작한 작은 실험입니다. 앞으로 다양한 질문카드를 하나씩 더 만들어 보려고 합니다.</p>
+    <div class="question-card-grid">
+      <article><a href="https://card.questionschool.net/work/" target="_blank" rel="noopener"><img src="https://card.questionschool.net/experience/assets/work-qr.jpg" width="1254" height="1254" loading="lazy" alt="일터 경험 나눔 질문 카드 · QR을 찍으면 일터용 질문 카드가 열립니다"></a><h3>일터 경험 나눔</h3><p>보람과 어려움, 동료에게 고마웠던 순간을 나누는 15가지 질문.</p><a class="btn btn-line" href="https://card.questionschool.net/work/" target="_blank" rel="noopener">일터 질문 카드 열기</a></article>
+      <article><a href="https://card.questionschool.net/school/" target="_blank" rel="noopener"><img src="https://card.questionschool.net/experience/assets/school-qr.jpg" width="1254" height="1254" loading="lazy" alt="학교생활 나눔 질문 카드 · QR을 찍으면 학생용 질문 카드가 열립니다"></a><h3>학교생활 나눔</h3><p>오늘의 배움과 친구, 마음을 돌아보며 함께 이야기하는 15가지 질문.</p><a class="btn btn-line" href="https://card.questionschool.net/school/" target="_blank" rel="noopener">학교생활 질문 카드 열기</a></article>
+    </div>
+    <div class="btn-group"><a class="btn btn-dark" href="https://card.questionschool.net/" target="_blank" rel="noopener">가치카드와 질문카드 모두 보기</a></div>
   </section>
 
   <!-- Thomas G -->
