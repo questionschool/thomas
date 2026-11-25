@@ -1,7 +1,7 @@
 import {requestCheckin} from "./request";
 import {useEffect,useState} from "react";
-import {BookOpen,Check,Users,Leaf,Copy,RefreshCw,X} from "lucide-react";
-type Entry={id:string;name:string;score:number;positive:string;change:string;expectation:string;updatedAt:string};
+import {BookOpen,Heart,Check,Users,Leaf,Copy,RefreshCw,X} from "lucide-react";
+type Entry={id:string;name:string;score:number;positive:string;change:string;expectation:string;likeCount:number;liked:number|boolean;updatedAt:string};
 type Data={rows:Entry[];stats:{count:number;average:number|null};hist:{score:number;count:number}[];mine:Entry|null};
 const blank={name:"",score:0,positive:"",change:"",expectation:""};
 const scoresDescending = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
@@ -13,6 +13,23 @@ export default function Page(){
  async function submit(e:React.FormEvent){e.preventDefault();setSaving(true);setError('');try{const res=await requestCheckin({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(form)});const d=await res.json() as {error?:string};if(!res.ok)throw Error(d.error);setNotice('이번 학기의 성찰을 남겼어요. 함께 돌아볼까요?');setView('results');await load();window.scrollTo({top:0,behavior:'smooth'})}catch(e){setError((e as Error).message)}finally{setSaving(false)}}
  async function share(){try{await navigator.clipboard.writeText(new URL("./", location.href).href);setNotice('사이트 링크를 복사했어요.')}catch{setNotice(`이 주소를 복사해 주세요: ${new URL("./", location.href).href}`)}}
  async function deleteMine(){setSaving(true);try{const r=await requestCheckin({method:'DELETE'});const d=await r.json() as {error?:string};if(!r.ok)throw Error(d.error);setForm(blank);setRemove(false);await load();setNotice('내 응답을 삭제했어요.')}catch(e){setError((e as Error).message)}finally{setSaving(false)}}
+ const [pendingLikes, setPendingLikes] = useState<Set<string>>(new Set());
+ async function setLike(question: Entry) {
+   if (pendingLikes.has(question.id)) return;
+   setPendingLikes(previous => new Set(previous).add(question.id));
+   setError('');
+   try {
+     const res = await requestCheckin({
+       method: 'POST', headers: {'Content-Type':'application/json'},
+       body: JSON.stringify({operation:'setQuestionLike', questionId:question.id, liked:!question.liked})
+     });
+     const result = await res.json() as {error?:string; liked:boolean; likeCount:number};
+     if (!res.ok) throw Error(result.error || '좋아요를 저장하지 못했어요.');
+     setData(previous => previous && ({...previous, rows:previous.rows.map(row => row.id === question.id
+       ? {...row, likeCount:result.likeCount, liked:result.liked} : row)}));
+   } catch (e) { setError((e as Error).message); }
+   finally { setPendingLikes(previous => {const next=new Set(previous);next.delete(question.id);return next;}); }
+ }
  const questions = (data?.rows ?? []).filter(row => row.expectation?.trim());
  const count=data?.stats.count||0;const rows=(data?.rows||[]).filter(r=>filter==='all'||r.score===Number(filter));
  return <><header><a className="brand" href="./"><span className="brand-icon"><BookOpen size={19}/></span> 교수자를 위한 질문수업</a><button className="quiet" onClick={share}><Copy size={15}/> 링크 공유</button></header><main><section className="hero"><img className="question-artist" src="./question-artist.jpg" width={120} height={120} alt="커다란 물음표 옆에서 생각에 잠긴 질문술사"/><div className="eyebrow"><span/> 이번 학기를 마무리하며...</div><h1>이번 학기, 여러분 자신의<br/><span>수업에 대한 만족도는 몇 점인가요<span className="gold">?</span></span></h1></section>
@@ -34,10 +51,18 @@ export default function Page(){
    <div className="stories-title"><h3 id="participant-questions-title">어떤 질문을 품고 이 자리에 오셨나요?</h3></div>
    {questions.length ? (
      <ul className="card question-list">
-       {questions.map(({id, name, expectation}) => (
-         <li key={id}>
-           <p>{expectation}</p>
-           <span>{name}</span>
+       {questions.map(question => (
+         <li key={question.id}>
+           <p>{question.expectation}{' '}<span className="question-author">_ {question.name}</span></p>
+           <button className="question-like" type="button"
+             aria-label={question.name+'님의 질문 좋아요 '+(question.likeCount ?? 0)+'명'}
+             aria-pressed={Boolean(question.liked)}
+             disabled={question.id===data.mine?.id || pendingLikes.has(question.id)}
+             title={question.id===data.mine?.id?'내 질문의 좋아요 수':question.liked?'좋아요 취소':'좋아요'}
+             onClick={()=>setLike(question)}>
+             <Heart size={17} aria-hidden="true" fill={question.liked?'currentColor':'none'}/>
+             {question.likeCount ?? 0}
+           </button>
          </li>
        ))}
      </ul>
