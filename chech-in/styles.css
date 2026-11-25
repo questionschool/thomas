@@ -12,3 +12,9 @@
   border-radius: 22%;
 }
 .hero:has(.question-artist) {padding-top: 12px;}
+
+.question-list { list-style: none; padding: 0 24px; margin: 0; }
+.question-list li { padding: 18px 0; }
+.question-list li + li { border-top: 1px solid var(--line); }
+.question-list p { margin: 0 0 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.question-list span { font-size: .875rem; color: var(--muted); overflow-wrap: anywhere; }
