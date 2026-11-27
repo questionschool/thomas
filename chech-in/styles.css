@@ -22,3 +22,19 @@
 .question-like { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-width:54px; min-height:44px; flex-shrink:0; color:var(--green); border-radius:12px; font-variant-numeric:tabular-nums; }
 .question-like:hover:not(:disabled), .question-like[aria-pressed="true"] { background:#e8efdf; }
 .question-like:disabled { opacity:.7; }
+
+.workshop-banner {
+  margin: clamp(8px, 2vw, 24px) 0 clamp(16px, 3vw, 28px);
+  line-height: 0;
+}
+.workshop-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+.form legend {
+  max-width: 100%;
+  word-break: keep-all;
+  text-wrap: balance;
+}
